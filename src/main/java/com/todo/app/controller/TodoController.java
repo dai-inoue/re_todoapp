@@ -36,11 +36,12 @@ public class TodoController {
 		return "redirect:/";
 	}
 	
+	// 削除処理
 	@RequestMapping(value="/delete")
 	public String delete() {
 		todoMapper.delete();
 		return "redirect:/";
-	}
-	
+			
+	}	
 }
 	
