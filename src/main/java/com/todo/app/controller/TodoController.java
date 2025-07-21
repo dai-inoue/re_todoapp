@@ -30,9 +30,9 @@ public class TodoController {
 		 model.addAttribute("todos", incompleteList);
 		 
 		// TodoMapper.javaインタフェースのselectComplete( )メソッドを実行 
-		// 未完了のTodoアイテムのリストをデータベースから取得
+		// 完了のTodoアイテムのリストをデータベースから取得
 		 List<Todo> completeList = todoMapper.selectComplete();
-		// 取得した未完了リストを "todos" という名前でモデルに追加.その後viewで使用
+		// 取得した完了リストを "todos" という名前でモデルに追加.その後viewで使用
 		 model.addAttribute("doneTodos", completeList); 		
 		 
 		return "index";
@@ -49,11 +49,11 @@ public class TodoController {
 		return "redirect:/";
 	}
 	
-	// 更新処理
+	// 完了済処理
 	@RequestMapping(value="/update")
 	// TodoMapper.javaインタフェースのupdate( )メソッドを実行 
 	public String update(Todo todo) {
-		// データベースのTodoアイテムを更新する
+		// データベースのTodoアイテムを完了済とする
 		todoMapper.update(todo);
 		return "redirect:/";
 	}

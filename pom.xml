@@ -8,9 +8,9 @@
 		<version>3.5.3</version>
 		<relativePath/> </parent>
 	<groupId>com.example</groupId>
-	<artifactId>todoapp</artifactId>
+	<artifactId>re_todoapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>todoapp</name>
+	<name>re_todoapp</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
