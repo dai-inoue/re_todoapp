@@ -1,6 +1,5 @@
 package com.todo.app.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,6 @@ public class TodoController {
 	@RequestMapping(value="/")
 	// controllerで作成されたデータをviewに渡す
 	public String index(Model model) {
-		// ArrayListの作成
-		ArrayList<String> List = new ArrayList<>();
 		
 		// TodoMapper.javaインタフェースのselectIncomplete( )メソッドを実行 
 		// 未完了のTodoアイテムのリストをデータベースから取得
@@ -39,8 +36,6 @@ public class TodoController {
 		 List<Todo> completeList = todoMapper.selectComplete();
 		// 取得した完了リストを "todos" という名前でモデルに追加.その後viewで使用
 		 model.addAttribute("doneTodos", completeList);
-		 
-		 
 		 
 		return "index";
 	}
