@@ -1,6 +1,6 @@
 package com.todo.app.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,18 +18,19 @@ public class Todo implements Comparable<Todo> {
 
 	private long id;
 	private String title;
+	
 	private int done_flg;
 
 	// 時間や日付のフォーマットの指定
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date time_limit;
+	private LocalDate time_limit;
 
 // このクラスではあくまでもソートのルールを定義している
 	@Override
 	public int compareTo(Todo otherTodo) {
 		// time_limit(期限日時で昇順ソート)
 		// compareToメソッドの戻り値ルール
-		// 負の整数を返す　thisオブジェクトがotherTodoオブジェクトよりも「小さい」(ソート順で前に来る)
+		// 負の整数を返す thisオブジェクトがotherTodoオブジェクトよりも「小さい」(ソート順で前に来る)
 		// ゼロを返す thisオブジェクトがotherTodoオブジェクトが等しい場合
 		// 正の整数を返す thisオブジェクトがotherTodoオブジェクトよりも大きい
 
