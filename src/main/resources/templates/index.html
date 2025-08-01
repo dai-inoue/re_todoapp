@@ -21,11 +21,15 @@
 	<input type="date" name="time_limit"th:value="${todo.time_limit}" />
 </form>
 <h3>新しいタスクを追加</h3>
-<form method="post" th:action="@{/add}">
-	<input type="text" name="title" />
-	<input type="date" name="time_limit"/>
+<form method="post" th:action="@{/add}" th:object="${todo}">
+	<input type="text" th:field="*{title}" />
+	<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red"></span>
+	
+	<input type="date" th:field="*{time_limit}"/>
+	<span th:if="${#fields.hasErrors('time_limit')}" th:errors="*{time_limit}" style="color:red"></span>
 	<input type="submit" value="追加" />
 </form>
+
 <form method="post" th:action="@{/delete}">
 	 <input type="submit" value="完了済みを削除" />
 </form>
