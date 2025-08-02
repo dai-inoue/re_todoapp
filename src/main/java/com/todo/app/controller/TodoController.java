@@ -21,7 +21,7 @@ import jakarta.validation.Valid;
 @Controller
 public class TodoController {
 	
-	// DBを使えるようにするために使うもの
+	// DBを使えるようにするために使うもの!
 	@Autowired
 	TodoMapper todoMapper;
 	
