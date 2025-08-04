@@ -1,6 +1,5 @@
 package com.todo.app.controller;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,46 +19,43 @@ import jakarta.validation.Valid;
  */
 @Controller
 public class TodoController {
-	
+
 	// DBを使えるようにするために使うもの!
 	@Autowired
 	TodoMapper todoMapper;
-	
+
 	// 目的のURLに対して直接アクセスするメソッド
-	@RequestMapping(value="/")
+	@RequestMapping(value = "/")
 	// controllerで作成されたデータをviewに渡す
 	public String index(Model model) {
-		// ArrayListの作成
-		ArrayList<String> List = new ArrayList<>();
-		
-		// TodoMapper.javaインタフェースのselectIncomplete( )メソッドを実行 
+		// TodoMapper.javaインタフェースのselectIncomplete( )メソッドを実行
 		// 未完了のTodoアイテムのリストをデータベースから取得
-		 List<Todo> incompleteList = todoMapper.selectIncomplete();
-		 // 取得した未完了リストを "todos" という名前でモデルに追加.その後viewで使用
-		 model.addAttribute("todos", incompleteList);
-		 
-		// TodoMapper.javaインタフェースのselectComplete( )メソッドを実行 
+		List<Todo> incompleteList = todoMapper.selectIncomplete();
+		// 取得した未完了リストを "todos" という名前でモデルに追加.その後viewで使用
+		model.addAttribute("todos", incompleteList);
+
+		// TodoMapper.javaインタフェースのselectComplete( )メソッドを実行
 		// 完了のTodoアイテムのリストをデータベースから取得
-		 List<Todo> completeList = todoMapper.selectComplete();
-			// 取得した完了リストを "todos" という名前でモデルに追加.その後viewで使用
-		 model.addAttribute("doneTodos", completeList);
-		 
+		List<Todo> completeList = todoMapper.selectComplete();
+		// 取得した完了リストを "todos" という名前でモデルに追加.その後viewで使用
+		model.addAttribute("doneTodos", completeList);
+
 		 // 新しいタスクを入力するためのフォームを、初期化状態で表示
-		 model.addAttribute("todo", new Todo());
-		 
+		model.addAttribute("todo", new Todo());
+
 		// TodoクラスのcompareToメソッドに基づいてincompleteListをソートします
 		Collections.sort(incompleteList);
-		 
+
 		return "index";
 	}
-	
+
 	// 追加処理
-	@RequestMapping(value="/add")
-	// TodoMapper.javaインタフェースのadd( )メソッドを実行 
+	@RequestMapping(value = "/add")
+	// TodoMapper.javaインタフェースのadd( )メソッドを実行
 	// index.htmlで入力されたデータがTodoへ入る
 	public String add(@Valid Todo todo, BindingResult bindingResult, Model model) {
 		// コメント入力todo
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			List<Todo> incompleteList = todoMapper.selectIncomplete();
 			Collections.sort(incompleteList);
 			model.addAttribute("todos", incompleteList);
@@ -74,23 +70,23 @@ public class TodoController {
 		todoMapper.add(todo);
 		return "redirect:/";
 	}
-	
+
 	// 完了済処理
-	@RequestMapping(value="/update")
-	// TodoMapper.javaインタフェースのupdate( )メソッドを実行 
+	@RequestMapping(value = "/update")
+	// TodoMapper.javaインタフェースのupdate( )メソッドを実行
 	public String update(Todo todo) {
 		// データベースのTodoアイテムを完了済とする
 		todoMapper.update(todo);
 		return "redirect:/";
 	}
-	
+
 	// 削除処理
-	@RequestMapping(value="/delete")
-	
+	@RequestMapping(value = "/delete")
+
 	public String delete() {
-		// TodoMapper.javaインタフェースのdelete( )メソッドを実行 
+		// TodoMapper.javaインタフェースのdelete( )メソッドを実行
 		todoMapper.delete();
 		return "redirect:/";
-			
-	}	
+
+	}
 }
