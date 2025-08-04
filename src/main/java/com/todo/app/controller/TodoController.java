@@ -41,10 +41,10 @@ public class TodoController {
 		// TodoMapper.javaインタフェースのselectComplete( )メソッドを実行 
 		// 完了のTodoアイテムのリストをデータベースから取得
 		 List<Todo> completeList = todoMapper.selectComplete();
-		// 取得した完了リストを "todos" という名前でモデルに追加.その後viewで使用
+			// 取得した完了リストを "todos" という名前でモデルに追加.その後viewで使用
 		 model.addAttribute("doneTodos", completeList);
 		 
-		 // コメント入力 テスト
+		 // 新しいタスクを入力するためのフォームを、初期化状態で表示
 		 model.addAttribute("todo", new Todo());
 		 
 		// TodoクラスのcompareToメソッドに基づいてincompleteListをソートします

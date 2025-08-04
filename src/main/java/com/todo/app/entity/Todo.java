@@ -61,7 +61,7 @@ public class Todo implements Comparable<Todo> {
 			// 4両方のタスクのtime_limit が null でない場合（どちらのタスクも期限が設定されている）
 		} else {
 			// java.util.Date クラスの compareTo メソッドを使用して、日付を直接比較
-			// この比較結果は、thisの日付がotherTodoの日付より「前」なら負、「同じ」なら0、「後」なら正の値を返す 
+			// この比較結果は、thisの日付がotherTodoの日付より「過去」なら負、「同じ」なら0、「未来」なら正の値を返す
 			int dateComparison = this.time_limit.compareTo(otherTodo.time_limit);
 			// 日付が異なる場合（比較結果が0でない場合）
 			if(dateComparison != 0) {
