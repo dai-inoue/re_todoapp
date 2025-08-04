@@ -44,7 +44,7 @@ public class TodoController {
 		// 取得した完了リストを "todos" という名前でモデルに追加.その後viewで使用
 		 model.addAttribute("doneTodos", completeList);
 		 
-		 // コメント入力
+		 // コメント入力 テスト
 		 model.addAttribute("todo", new Todo());
 		 
 		// TodoクラスのcompareToメソッドに基づいてincompleteListをソートします
