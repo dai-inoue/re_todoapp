@@ -2,10 +2,18 @@ package com.todo.app.entity;
 
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+@Entity
+@Table(name = "todo_items")
 // getter setterを記入する必要がなくなる
 @Data
 
@@ -15,6 +23,9 @@ import lombok.Data;
 
 public class Todo implements Comparable<Todo> {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+
   private long id;
   @NotBlank(message = "空白ではだめです")
   private String title;
@@ -22,8 +33,10 @@ public class Todo implements Comparable<Todo> {
   // 時間や日付のフォーマットの指定
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   @NotNull(message = "日付を入れてください")
+  @Column(name = "time_limit")
   private LocalDate time_limit;
 
+  @Column(name = "done_flg")
   private int done_flg;
 
   // このクラスではあくまでもソートのルールを定義している

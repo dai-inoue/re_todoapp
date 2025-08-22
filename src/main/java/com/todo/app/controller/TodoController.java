@@ -3,11 +3,15 @@ package com.todo.app.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.todo.app.entity.Todo;
 import com.todo.app.mapper.TodoMapper;
 import jakarta.validation.Valid;
@@ -51,7 +55,7 @@ public class TodoController {
   }
 
   // 追加処理
-  @RequestMapping(value = "/add")
+  @PostMapping(value = "/add")
   // TodoMapper.javaインタフェースのadd( )メソッドを実行
   // index.htmlで入力されたデータがTodoへ入る
   public String add(@Valid Todo todo, BindingResult bindingResult, Model model) {
@@ -77,6 +81,7 @@ public class TodoController {
 
 
   // 完了済処理
+  // 目的のURLに対して直接アクセスするためのメソッド
   @RequestMapping(value = "/update")
   // TodoMapper.javaインタフェースのupdate( )メソッドを実行
   public String update(Todo todo) {
@@ -85,13 +90,54 @@ public class TodoController {
     return "redirect:/";
   }
 
-  // 削除処理
-  @RequestMapping(value = "/delete")
-
-  public String delete() {
-    // TodoMapper.javaインタフェースのdelete( )メソッドを実行
-    todoMapper.delete();
+  // マイタスク削除メソッド todo
+  @PostMapping("/delete-done")
+  public String deleteDoneTodos() {
+    todoMapper.deleteDoneTodos();
     return "redirect:/";
+  }
 
+  // 削除処理 todo
+  // @RequestMapping(value = "/delete")
+  // public String delete(@RequestParam("id") Long id) {
+  // TodoMapper.javaインタフェースのdelete( )メソッドを実行
+  // }
+
+  // 検索機能の追加
+  // webブラウザからアクセスしたとき
+  @GetMapping(value = "/serch")
+  public String serch(@RequestParam(value = "keyword", required = false) String keyword,
+      // modelで引数をHTML側へ渡す
+      Model model) {
+    // エラー画面時、再表示させるもの
+    if (keyword == null || keyword.isBlank()) {
+      model.addAttribute("error", "検索キーワードを入れてください");
+      model.addAttribute("todos", todoMapper.selectComplete());
+      model.addAttribute("donetodos", todoMapper.selectIncomplete());
+      model.addAttribute("todo", new Todo());
+      return "index";
+    }
+    // 正しいkeywordが入力された際searchResultに格納される
+    List<Todo> searchResults = todoMapper.searchBytitle(keyword);
+
+    // 検索結果から未完了のタスク分ける
+    List<Todo> incompleteResults =
+        // stream データを効率的に処理するjavaの機能 ->(各Todoオブジェクトに対してこの処理を行う)
+        // Collectors.toList()): フィルターを通過したすべてのTodoオブジェクトを再度Listとして収集
+        searchResults.stream().filter(todo -> todo.getDone_flg() == 0).collect(Collectors.toList());
+    // 検索結果から完了済のタスク分ける
+    List<Todo> completeResults =
+        searchResults.stream().filter(todo -> todo.getDone_flg() == 1).collect(Collectors.toList());
+
+    // それぞれのリストをモデルに渡す
+    model.addAttribute("todos", incompleteResults);
+    model.addAttribute("doneTodos", completeResults);
+
+    // 検索フォーム値を保持
+    Todo searchForm = new Todo();
+    searchForm.setTitle(keyword);
+    model.addAttribute("todo", searchForm);
+
+    return "index";
   }
 }

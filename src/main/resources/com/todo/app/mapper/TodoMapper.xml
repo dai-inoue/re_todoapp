@@ -37,11 +37,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 public void add(Todo todo)のaddへマッピングする  -->
 	<!-- VALUE句の#{title}, #{time_limit}が 引数として渡されたTodoエンティティの
 	 title, time_limitフィールドの値がSQLに埋め込まれる -->
-	<insert id="add" parameterType="com.todo.app.entity.Todo">
-		INSERT INTO todo_items (title,time_limit, done_flg)
-		VALUES (#{title}, #{time_limit}, 0)
-	</insert>
-	
 	<!-- todoアイテムのupdateを取得するためのSQLマッピング -->
 	<!-- id="update"を javaコードからSQLを呼び出す識別子  -->
 	<!-- parameterType="com.todo.app.entity.Todo SQLに渡される引数をインタフェースの

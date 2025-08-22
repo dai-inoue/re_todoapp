@@ -6,12 +6,24 @@
 </head>
 <body>
 <h1>TodoList</h1>
+
+<h2>検索</h2>
+<form method="get" th:action="@{/search}" >
+	<input type="text"  name="keyword"/>
+	<input type="submit" value="検索" />
+	<span th:if="${error}" th:text="${error}" style="color:red"></span>
+</form>
+
 <h3>マイタスク</h3>
 <form method="post" th:action="@{/update}" th:each="todo : ${todos}" >
+	<input type="checkbox">
     <input type="hidden" name="id" th:value="${todo.id}" />
     <input type="text" name="title" th:value="${todo.title}" />
     <input type="date" name="time_limit" th:value="${todo.time_limit}" />
 	<button type="submit" name="done_flg" value="1">完了</button>
+</form>
+<form >
+	 <input type="submit" value="選択したマイタスクを削除" />
 </form>
 
 <h3>完了済み</h3>
@@ -29,8 +41,7 @@
 	<span th:if="${#fields.hasErrors('time_limit')}" th:errors="*{time_limit}" style="color:red"></span>
 	<input type="submit" value="追加" />
 </form>
-
-<form method="post" th:action="@{/delete}">
+<form method="post" th:action="@{/delete-done}">
 	 <input type="submit" value="完了済みを削除" />
 </form>
 
