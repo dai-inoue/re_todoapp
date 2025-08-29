@@ -97,12 +97,6 @@ public class TodoController {
     return "redirect:/";
   }
 
-  // 削除処理 todo
-  // @RequestMapping(value = "/delete")
-  // public String delete(@RequestParam("id") Long id) {
-  // TodoMapper.javaインタフェースのdelete( )メソッドを実行
-  // }
-
   // 検索機能の追加
   // webブラウザからアクセスしたとき
   @GetMapping(value = "/serch")

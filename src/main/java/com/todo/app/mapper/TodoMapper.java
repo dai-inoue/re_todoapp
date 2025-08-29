@@ -11,6 +11,7 @@ import com.todo.app.entity.Todo;
 // DBに『お願い』をするためのリスト
 // TodoController クラスは、ユーザーからのタスクを追加や削除という様々な要求を受けとる
 public interface TodoMapper {
+
   public List<Todo> selectAll();
 
   public List<Todo> selectIncomplete(); // 未完了タスクのみ表示
