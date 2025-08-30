@@ -7,4 +7,5 @@ public class SearchForm {
   @NotBlank(message = "{NotBlank.todo.keyword}")
   private String kuyword;
   // todo
+  // テスト送信
 }
