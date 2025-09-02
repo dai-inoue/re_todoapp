@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.data.repository.query.Param;
 import com.todo.app.entity.Todo;
 
 @Mapper
@@ -18,9 +19,12 @@ public interface TodoMapper {
 
   public List<Todo> selectComplete(); // ：完了タスクのみ表示
 
-  public void update(Todo todo); // タスク更新
+  public void update(Todo todo); // タスク完了
 
-  public void delete(Long id); // タスク削除 todo
+  public void delete(Long id); // タスク削除
+
+  public int updateItem(@Param("id") int id, @Param("title") String title,
+      @Param("time_limit") String time_limit); // タスク 日付の更新 todo
 
   // タスク追加
   @Insert("INSERT INTO todo_items (title, time_limit, done_flg) VALUES (#{title}, #{time_limit}, 0)")

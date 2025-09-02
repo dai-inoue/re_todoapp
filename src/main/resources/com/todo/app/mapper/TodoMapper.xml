@@ -58,4 +58,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="com.todo.app.entity.Todo">
 		DELETE FROM todo_items WHERE done_flg = 1
 	</delete>
+	
+	<!-- 更新処理-->
+	<update id="updateItem">
+	 update todo_items
+	 set
+	 	title = #{title},
+	 	time_limit = #{time_limit}
+	 where 
+	 	id = #{id}
+	</update>
 </mapper>

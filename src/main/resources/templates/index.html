@@ -15,12 +15,20 @@
 </form>
 
 <h3>マイタスク</h3>
-<form method="post" th:action="@{/update}" th:each="todo : ${todos}" >
-    <input type="hidden" name="id" th:value="${todo.id}" />
-    <input type="text" name="title" th:value="${todo.title}" />
-    <input type="date" name="time_limit" th:value="${todo.time_limit}" />
-	<button type="submit" name="done_flg" value="1">完了</button>
-</form>
+<div th:each="todo : ${todos}">
+    <form method="post" th:action="@{/task/update}" style="display:inline-block;">
+        <input type="hidden" name="id" th:value="${todo.id}" />
+        <input type="text" name="title" th:value="${todo.title}" />
+        <input type="date" name="time_limit" th:value="${todo.time_limit}" />
+        <button type="submit">更新</button>
+    </form>
+    <form method="post" th:action="@{/update}" style="display:inline-block;">
+        <input type="hidden" name="id" th:value="${todo.id}" />
+        <input type="hidden" name="title" th:value="${todo.title}" />
+        <input type="hidden" name="time_limit" th:value="${todo.time_limit}" />
+        <button type="submit" name="done_flg" value="1">完了</button>
+    </form>
+</div>
 
 <h3>完了済み</h3>
 	<form method="post" th:action="@{/delete}" th:each="todo : ${doneTodos}" >
@@ -28,11 +36,11 @@
 	<input type="text" name="title"th:value="${todo.title}" style="text-decoration:line-through"/>
 	<input type="date" name="time_limit"th:value="${todo.time_limit}" />
 </form>
+
 <h3>新しいタスクを追加</h3>
 <form method="post" th:action="@{/add}" th:object="${todo}">
 	<input type="text" th:field="*{title}" />
-	<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red"></span>
-	
+	<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red"></span>	
 	<input type="date" th:field="*{time_limit}"/>
 	<span th:if="${#fields.hasErrors('time_limit')}" th:errors="*{time_limit}" style="color:red"></span>
 	<input type="submit" value="追加" />

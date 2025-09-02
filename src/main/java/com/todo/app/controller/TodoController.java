@@ -99,7 +99,7 @@ public class TodoController {
 
   // 検索機能の追加
   // webブラウザからアクセスしたとき
-  @GetMapping(value = "/serch")
+  @GetMapping(value = "/search")
   public String serch(@RequestParam(value = "keyword", required = false) String keyword,
       // modelで引数をHTML側へ渡す
       Model model) {
@@ -127,11 +127,18 @@ public class TodoController {
     model.addAttribute("todos", incompleteResults);
     model.addAttribute("doneTodos", completeResults);
 
-    // 検索フォーム値を保持
-    Todo searchForm = new Todo();
-    searchForm.setTitle(keyword);
-    model.addAttribute("todo", searchForm);
+    // 新しいタスクを追加フォーム用に、新しい空のTodoオブジェクトを渡す
+    model.addAttribute("todo", new Todo());
 
     return "index";
+  }
+
+  // todo 日付・タスク更新処理
+  @PostMapping(value = "/task/update")
+  public String updateItem(@RequestParam("id") int id, @RequestParam("title") String title,
+      @RequestParam("time_limit") String time_limit) {
+    todoMapper.updateItem(id, title, time_limit);
+
+    return "redirect:/";
   }
 }

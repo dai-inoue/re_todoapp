@@ -27,7 +27,7 @@ public class Todo implements Comparable<Todo> {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
 
   private long id;
-  @NotBlank(message = "空白ではだめです")
+  @NotBlank(message = "タスクを入力してください")
   private String title;
 
   // 時間や日付のフォーマットの指定
