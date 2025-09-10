@@ -37,6 +37,8 @@
 	<input type="date" name="time_limit"th:value="${todo.time_limit}" />
 </form>
 
+<button type="button" onclick="location.href='http://localhost:8080/'">戻る</button>
+
 <h3>新しいタスクを追加</h3>
 <form method="post" th:action="@{/add}" th:object="${todo}">
 	<input type="text" th:field="*{title}" />
