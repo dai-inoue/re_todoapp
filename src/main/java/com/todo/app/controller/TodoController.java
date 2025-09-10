@@ -52,6 +52,8 @@ public class TodoController {
     Collections.sort(incompleteList);
 
     return "index";
+
+
   }
 
   // 追加処理
@@ -130,6 +132,8 @@ public class TodoController {
     // 新しいタスクを追加フォーム用に、新しい空のTodoオブジェクトを渡す
     model.addAttribute("todo", new Todo());
 
+    // コメントtodo
+    model.addAttribute("isSearched", true);
     return "index";
   }
 
@@ -140,5 +144,12 @@ public class TodoController {
     todoMapper.updateItem(id, title, time_limit);
 
     return "redirect:/";
+  }
+
+  // タスク完了から未完了更新処理 コメントtodo
+  @PostMapping("/task/restore")
+  public String restoreTask(@RequestParam("id") int id) {
+    todoMapper.markAsIncomplete(id);
+    return "redirect:/"; // タスクを戻した後、トップページにリダイレクト
   }
 }

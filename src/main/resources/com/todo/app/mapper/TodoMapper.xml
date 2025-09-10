@@ -68,4 +68,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 where 
 	 	id = #{id}
 	</update>
+	
+	<!-- 完了から未完了更新処理 todo-->
+	<update id="markAsIncomplete">
+    	UPDATE todo_items SET done_flg = 0 WHERE id = #{id}
+	</update>
 </mapper>

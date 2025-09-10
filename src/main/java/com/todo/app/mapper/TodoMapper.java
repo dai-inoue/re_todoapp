@@ -23,8 +23,11 @@ public interface TodoMapper {
 
   public void delete(Long id); // タスク削除
 
+  public void markAsIncomplete(@Param("id") int id); // タスク完了から未完了
+
   public int updateItem(@Param("id") int id, @Param("title") String title,
       @Param("time_limit") String time_limit); // タスク 日付の更新 todo
+
 
   // タスク追加
   @Insert("INSERT INTO todo_items (title, time_limit, done_flg) VALUES (#{title}, #{time_limit}, 0)")
