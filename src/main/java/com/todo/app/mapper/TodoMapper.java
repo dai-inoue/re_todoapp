@@ -26,7 +26,7 @@ public interface TodoMapper {
   public void markAsIncomplete(@Param("id") int id); // タスク完了から未完了
 
   public int updateItem(@Param("id") int id, @Param("title") String title,
-      @Param("time_limit") String time_limit); // タスク 日付の更新 todo
+      @Param("time_limit") String time_limit); // タスク 日付の更新
 
 
   // タスク追加
@@ -40,4 +40,7 @@ public interface TodoMapper {
   // 完了済のTodoアイテムをすべて削除する
   @Delete("DELETE from todo_items where done_flg = 1")
   void deleteDoneTodos();
+
+  // todomapper.xmlにもsqlは書かれているが大まかな違いとしては、簡単なコードはアノテーション。複雑なのはxmlへ書く
+
 }

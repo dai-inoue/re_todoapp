@@ -53,7 +53,6 @@ public class TodoController {
 
     return "index";
 
-
   }
 
   // 追加処理
@@ -132,23 +131,28 @@ public class TodoController {
     // 新しいタスクを追加フォーム用に、新しい空のTodoオブジェクトを渡す
     model.addAttribute("todo", new Todo());
 
-    // コメントtodo
+    // 検索結果をisSearchedに入れhtmlへ渡す
     model.addAttribute("isSearched", true);
     return "index";
   }
 
-  // todo 日付・タスク更新処理
+  // 日付・タスク更新処理
+  // htmlの/task/updateへリクエストを**受け取る**
   @PostMapping(value = "/task/update")
+  // id title time_limitを更新する
   public String updateItem(@RequestParam("id") int id, @RequestParam("title") String title,
       @RequestParam("time_limit") String time_limit) {
+    // 取得した３つのデータを更新する
     todoMapper.updateItem(id, title, time_limit);
 
     return "redirect:/";
   }
 
-  // タスク完了から未完了更新処理 コメントtodo
+  // タスク完了から未完了更新処理
+  // htmlの/task/restoreへリクエストを**受け取る**
   @PostMapping("/task/restore")
   public String restoreTask(@RequestParam("id") int id) {
+    // 取得したデータを未完了にする
     todoMapper.markAsIncomplete(id);
     return "redirect:/"; // タスクを戻した後、トップページにリダイレクト
   }
