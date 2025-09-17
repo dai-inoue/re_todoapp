@@ -1,16 +1,12 @@
-# Name（リポジトリ/プロジェクト/OSSなどの名前）
+# re_todoapp
 
-分かりやすくてカッコイイ名前をつける（今回は"hoge"という名前をつける）
+# 概要
 
-"hoge"が何かを簡潔に紹介する
+re_todoappは、日々のタスクを効率的に管理するためのシンプルなタスク管理アプリケーションです。
+(re)は再度書き直したため
 
 # DEMO
-
-"hoge"の魅力が直感的に伝えわるデモ動画や図解を載せる
-
-# Features
-
-"hoge"のセールスポイントや差別化などを説明する
+https://github.com/user-attachments/assets/91f65b9e-57e5-4c10-8441-44a8f2f29555
 
 # Requirement
 
