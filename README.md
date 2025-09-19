@@ -1,37 +1,43 @@
 # re_todoapp
 
 # 概要
-
 re_todoappは、日々のタスクを効率的に管理するためのシンプルなタスク管理アプリケーションです。
 (re)は再度書き直したため
 
-# DEMO
+# デモ
 https://github.com/user-attachments/assets/91f65b9e-57e5-4c10-8441-44a8f2f29555
 
-# Requirement
+# 特徴
+・CRUD機能
+・バリデーション機能
+・検索機能
+・戻り機能
+・日付優先機能
 
-"hoge"を動かすのに必要なライブラリなどを列挙する
+**【こだわりポイント】**
+日付更新機能
+登録した日付の前後で並び順が変化する
 
-* huga 3.5.2
-* hogehuga 1.0.2
+# 機能要件
+・spring-boot-starter-web: Webアプリケーションを開発するための基本的な機能をつけるため。
 
-# Installation
+・spring-boot-starter-thymeleaf: HTMLをテンプレートとして使うため。
 
-Requirementで列挙したライブラリなどのインストール方法を説明する
+・spring-boot-starter-validation: 入力されたデータが正しい形式かどうかをチェックするため。
 
-```bash
-pip install huga_package
-```
+・mybatis-spring-boot-starter 3.0.3: データベースと連携するためまた、JavaのコードからSQL文を扱いやすくするため。
 
-# Usage
+・mysql-connector-j: MySQLデータベースに接続するため。
 
-DEMOの実行方法など、"hoge"の基本的な使い方を説明する
+・lombok: getterやsetterなどのコードを自動生成してくれるため。
 
-```bash
-git clone https://github.com/hoge/~
-cd examples
-python demo.py
-```
+# インストール方法
+pom.xmlへ記載することでインストールした。
+
+# 使用方法(手順)
+以下のリポジトリをクローンする
+
+
 
 # Note
 
