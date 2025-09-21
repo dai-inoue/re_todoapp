@@ -1,61 +1,60 @@
 # re_todoapp
 
+# 目的
+今回のプロジェクトは、個人的な技術開発と、転職活動用のポートフォリオとして作成したものです。
+
 # 概要
-re_todoappは、日々のタスクを効率的に管理するためのシンプルなタスク管理アプリケーションです。
-(re)は再度書き直したため
+re_todoappは、日々のタスクを効率的に管理するためのシンプルなタスク管理アプリケーションです。<br>プロジェクト名の "(re)" は、再度書き直したことを意味します。
 
 # デモ
-https://github.com/user-attachments/assets/91f65b9e-57e5-4c10-8441-44a8f2f29555
+https://github.com/user-attachments/assets/1578e7f5-aaea-49af-8bb5-8600db4785f7
 
-# 特徴
-・CRUD機能
-・バリデーション機能
-・検索機能
-・戻り機能
-・日付優先機能
+# 主な機能
+- CRUD機能（登録、参照、更新、削除）
+- 入力値の検証(バリデーション機能)
+- タスクの検索機能
+- タスクの戻り機能（完了したタスクを未完了に戻す）
+- 日付優先機能（登録した日付の前後で並び順が変化）
 
-**【こだわりポイント】**
-日付更新機能
-登録した日付の前後で並び順が変化する
+# 技術的特徴
+-   **言語**: Java
+-   **フレームワーク**: Spring Boot
+-   **データベース**: MySQL
+-   **ビルドツール**: Maven
 
 # 機能要件
-・spring-boot-starter-web: Webアプリケーションを開発するための基本的な機能をつけるため。
-
-・spring-boot-starter-thymeleaf: HTMLをテンプレートとして使うため。
-
-・spring-boot-starter-validation: 入力されたデータが正しい形式かどうかをチェックするため。
-
-・mybatis-spring-boot-starter 3.0.3: データベースと連携するためまた、JavaのコードからSQL文を扱いやすくするため。
-
-・mysql-connector-j: MySQLデータベースに接続するため。
-
-・lombok: getterやsetterなどのコードを自動生成してくれるため。
+- spring-boot-starter-web: Webアプリケーションを開発するための基本的な機能をつけるため。
+- spring-boot-starter-thymeleaf: HTMLをテンプレートとして使うため。
+- spring-boot-starter-validation: 入力されたデータが正しい形式かどうかをチェックするため。
+- mybatis-spring-boot-starter 3.0.3: データベースと連携するためまた、JavaのコードからSQL文を扱いやすくするため。
+- mysql-connector-j: MySQLデータベースに接続するため。
+- lombok: getterやsetterなどのコードを自動生成してくれるため。
 
 # インストール方法
-pom.xmlへ記載することでインストールした。
+- 必要なもの
+    - Java Development Kit (JDK) 21
+    - apache-maven-3.9.11
+    - Git
+- セットアップ
+   (以下のコマンドでプロジェクトをローカルにクローンします。)
+  - https://github.com/dai-inoue/re_todoapp.git
+- ビルド方法
+  - cd re_todoapp <br>(プロジェクトのディレクトリに移動します)
+  - mvn packageプロジェクトをビルドします。<br>(このコマンドが成功すると、`target` フォルダ内に `re_todoapp-0.0.1-SNAPSHOT.jar` という実行可能なファイルが生成されます。)
+- 起動方法
+  - java -jar target/re_todoapp-0.0.1-SNAPSHOT.jar](http://localhost:8080)
 
-# 使用方法(手順)
-以下のリポジトリをクローンする
+# 作成者
 
+* 作成者: 井上
+* 貢献者: 坂本
+* 所属: ジャパニアス株式会社
+* GItHubプロフィール: https://github.com/dai-inoue
+* GItHubプロフィール: https://github.com/SS0227
+<div align="center">
+    <img width="320" alt="スクリーンショット 2025-09-21 213107" src="https://github.com/user-attachments/assets/07830a09-8d0b-4c42-8c2e-4fc6ec09374f" />
+    <img width="312" height="423" alt="image" src="https://github.com/user-attachments/assets/7db4b64b-d04d-4b22-9996-c031f0c0faa8" />
+</div>
 
-
-# Note
-
-注意点などがあれば書く
-
-# Author
-
-作成情報を列挙する
-
-* 作成者
-* 所属
-* E-mail
-
-# License
-ライセンスを明示する
-
-"hoge" is under [MIT license](https://en.wikipedia.org/wiki/MIT_License).
-
-社内向けなら社外秘であることを明示してる
-
-"hoge" is Confidential.
+# ライセンス
+このプロジェクトは、[**MITライセンス**](https://opensource.org/licenses/MIT)に基づいてライセンスされてる。詳細については、[LICENSE](LICENSE)ファイルを参照してください。
