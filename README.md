@@ -36,20 +36,13 @@ pom.xmlへ記載することでインストールした。
 
 # 使用方法(手順)
 以下のリポジトリをクローンする
+https://github.com/dai-inoue/re_todoapp.git
 
+# 作成者
 
-
-# Note
-
-注意点などがあれば書く
-
-# Author
-
-作成情報を列挙する
-
-* 作成者
-* 所属
-* E-mail
+* 作成者: 井上 坂本
+* 所属: ジャパニアス株式貨車
+* E-mail: di19970701@icloud.com
 
 # License
 ライセンスを明示する
