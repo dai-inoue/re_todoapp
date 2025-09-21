@@ -4,8 +4,7 @@
 今回のプロジェクトは、個人的な技術開発と、転職活動用のポートフォリオとして作成したものです。
 
 # 概要
-re_todoappは、日々のタスクを効率的に管理するためのシンプルなタスク管理アプリケーションです。
-プロジェクト名の "(re)" は、再度書き直したことを意味します。
+re_todoappは、日々のタスクを効率的に管理するためのシンプルなタスク管理アプリケーションです。<br>プロジェクト名の "(re)" は、再度書き直したことを意味します。
 
 # デモ
 https://github.com/user-attachments/assets/1578e7f5-aaea-49af-8bb5-8600db4785f7
@@ -55,5 +54,5 @@ https://github.com/user-attachments/assets/1578e7f5-aaea-49af-8bb5-8600db4785f7
   <img src="https://github.com/user-attachments/assets/e876c492-cd59-42f0-9352-e97a0e8b4ffa" width="200" alt="プロフィール画像">
 </div>
 
-#ライセンス
+# ライセンス
 このプロジェクトは、[**MITライセンス**](https://opensource.org/licenses/MIT)に基づいてライセンスされてる。詳細については、[LICENSE](LICENSE)ファイルを参照してください。
