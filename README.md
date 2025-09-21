@@ -50,8 +50,10 @@ https://github.com/user-attachments/assets/1578e7f5-aaea-49af-8bb5-8600db4785f7
 * 貢献者: 坂本
 * 所属: ジャパニアス株式会社
 * GItHubプロフィール: https://github.com/dai-inoue
+* GItHubプロフィール: https://github.com/SS0227
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/e876c492-cd59-42f0-9352-e97a0e8b4ffa" width="200" alt="プロフィール画像">
+    <img width="320" alt="スクリーンショット 2025-09-21 213107" src="https://github.com/user-attachments/assets/07830a09-8d0b-4c42-8c2e-4fc6ec09374f" />
+    <img width="312" height="423" alt="image" src="https://github.com/user-attachments/assets/7db4b64b-d04d-4b22-9996-c031f0c0faa8" />
 </div>
 
 # ライセンス
