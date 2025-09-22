@@ -22,7 +22,7 @@ https://github.com/user-attachments/assets/1578e7f5-aaea-49af-8bb5-8600db4785f7
 -   **データベース**: MySQL
 -   **ビルドツール**: Maven
 
-# 機能要件
+# 使用フレームワーク・ライブラリー
 - spring-boot-starter-web: Webアプリケーションを開発するための基本的な機能をつけるため。
 - spring-boot-starter-thymeleaf: HTMLをテンプレートとして使うため。
 - spring-boot-starter-validation: 入力されたデータが正しい形式かどうかをチェックするため。
@@ -32,9 +32,10 @@ https://github.com/user-attachments/assets/1578e7f5-aaea-49af-8bb5-8600db4785f7
 
 # インストール方法
 - 必要なもの
+    - Git
     - Java Development Kit (JDK) 21
     - apache-maven-3.9.11
-    - Git
+    - MySQL Workbench 8.0 CE
 - セットアップ
    (以下のコマンドでプロジェクトをローカルにクローンします。)
   - https://github.com/dai-inoue/re_todoapp.git
@@ -44,6 +45,26 @@ https://github.com/user-attachments/assets/1578e7f5-aaea-49af-8bb5-8600db4785f7
 - 起動方法
   - java -jar target/re_todoapp-0.0.1-SNAPSHOT.jar](http://localhost:8080)
 
+- MySQL インストール方法【Windows 11 Homeの場合】
+  - インストーラのダウンロード
+      - 以下のMySQL公式ウェブサイトにアクセス
+      - MySQL Installer for Windows
+      - ページ下部にある「Download」ボタンをクリックして、インストーラをダウンロード
+        
+  - インストーラの実行
+      - ダウンロードした.exeファイルを実行
+      - **「Choose a Setup Type」**という画面が表示されたら、「Developer Default」を選択して、Nextをクリック
+      - 要なコンポーネントがいくつかリストアップされるので、そのままNextをクリック
+
+   - rootユーザーのパスワード設定
+      - インストール中に **「Authentication Method」** という画面で、rootユーザーのパスワード設定を行う。
+      - **「MySQL Root Password」** の欄に、任意のパスワードを入力。このパスワードはMySQLに接続する際に必要になるため、<br> 必ずメモ必要です
+      - パスワードの強度を確認し、問題なければNextをクリックしてインストールを続行します
+  
+   - インストール完了
+      - すべてのコンポーネントのインストールが完了したら、Finishをクリックしてセットアップを終了.
+  
+  
 # 作成者
 
 * 作成者: 井上
@@ -57,4 +78,4 @@ https://github.com/user-attachments/assets/1578e7f5-aaea-49af-8bb5-8600db4785f7
 </div>
 
 # ライセンス
-このプロジェクトは、[**MITライセンス**](https://opensource.org/licenses/MIT)に基づいてライセンスされてる。詳細については、[LICENSE](LICENSE)ファイルを参照してください。
+このプロジェクトは、[**MITライセンス**](https://opensource.org/licenses/MIT)に基づいている。詳細については、[LICENSE](LICENSE)ファイルを参照してください。
