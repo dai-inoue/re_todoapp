@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- mapper.xml DBとjavaをつなげるSQLマッピングファイル  -->
 <mapper namespace="com.todo.app.mapper.TodoMapper">
-	
+
 	<!-- 全てのtodoアイテムを取得するためのSQLマッピング  -->
 	<!-- id="selectAll" javaコードからSQLを呼び出す識別子  -->
 	<!-- resultType="com.todo.app.entity.Todo SQLからの取得結果をインタフェースの
@@ -12,16 +12,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectAll" resultType="com.todo.app.entity.Todo">
 		SELECT * FROM todo_items
 	</select>
-	
+
 	<!-- todoアイテムのselectIncompleteを取得するためのSQLマッピング  -->
 	<!-- id="selectIncomplete"を javaコードからSQLを呼び出す識別子  -->
 	<!-- resultType="com.todo.app.entity.Todo SQLからの取得結果をインタフェースの
 	 public List<Todo> selectIncomplete();のLISTへマッピングする  -->
 	<select id="selectIncomplete"
 		resultType="com.todo.app.entity.Todo">
-		SELECT * FROM todo_items WHERE done_flg = 0
+		SELECT * FROM todo_items WHERE done_flg = 0 AND expired_flg = 0
 	</select>
-	
+
 	<!-- todoアイテムのselectCompleteを取得するためのSQLマッピング  -->
 	<!-- id="selectComplete"を javaコードからSQLを呼び出す識別子  -->
 	<!-- resultType="com.todo.app.entity.Todo SQLからの取得結果をインタフェースの
@@ -30,7 +30,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="com.todo.app.entity.Todo">
 		SELECT * FROM todo_items WHERE done_flg = 1
 	</select>
-	
+
+	<select id="selectExpired"
+		resultType="com.todo.app.entity.Todo">
+		SELECT * FROM todo_items WHERE expired_flg = 1
+	</select>
+
 	<!-- todoアイテムのaddを取得するためのSQLマッピング -->
 	<!-- id="add"を javaコードからSQLを呼び出す識別子  -->
 	<!-- parameterType="com.todo.app.entity.Todo SQLに渡される引数をインタフェースの
@@ -47,18 +52,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update" parameterType="com.todo.app.entity.Todo">
 		update todo_items set
 		title = #{title},
-		time_limit = #{time_limit}, done_flg = #{done_flg}
+		time_limit = #{time_limit}, done_flg = #{done_flg},
+		expired_flg = #{expiredFlg}
 		WHERE id = #{id}
 	</update>
-	
+
 	<!-- 完了済  done_flg = 1のtodoアイテムをtodo_itemsテーブルから削除するsqlマッピング-->
 	<!-- id="delete"を javaコードからSQLを呼び出す識別子  -->
 	<!-- parameterType="com.todo.app.entity.Todo": 
-	このSQLに引数としてTodoエンティティが渡されるが、SQL自体は固定の条件（done_flg=1）で削除を行う -->	
+	このSQLに引数としてTodoエンティティが渡されるが、SQL自体は固定の条件（done_flg=1）で削除を行う -->
 	<delete id="delete" parameterType="com.todo.app.entity.Todo">
 		DELETE FROM todo_items WHERE done_flg = 1
 	</delete>
-	
+
 	<!-- 更新処理-->
 	<update id="updateItem">
 	<!-- 特定のタイトルと期間を更新するということ-->
@@ -69,7 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 where 
 	 	id = #{id}
 	</update>
-	
+
 	<!-- 完了から未完了更新処理 todo-->
 	<update id="markAsIncomplete">
 		<!-- 特定のIDを1→0に更新するということ-->
