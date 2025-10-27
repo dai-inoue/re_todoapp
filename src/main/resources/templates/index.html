@@ -42,10 +42,17 @@
 	<button type="submit" th:formaction="@{/task/restore}">マイタスクへ戻す</button>
 </form>
 
+<h3>期限切れ</h3>
+<div th:each="todo : ${expiredTodos}" >
+	<input type="hidden" name="id" th:value="${todo.id}" />
+	<span th:text="${todo.title}" style="text-decoration:line-through"></span>
+	<span th:text="${todo.time_limit}" style="text-decoration:line-through"></span>
+</div>
+
 <h3>新しいタスクを追加</h3>
 <form method="post" th:action="@{/add}" th:object="${todo}">
 	<input type="text" th:field="*{title}" />
-	<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red"></span>	
+	<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color:red"></span>
 	<input type="date" th:field="*{time_limit}"/>
 	<span th:if="${#fields.hasErrors('time_limit')}" th:errors="*{time_limit}" style="color:red"></span>
 	<input type="submit" value="追加" />

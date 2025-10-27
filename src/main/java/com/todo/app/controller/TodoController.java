@@ -51,6 +51,9 @@ public class TodoController {
     // TodoクラスのcompareToメソッドに基づいてincompleteListをソートします
     Collections.sort(incompleteList);
 
+    List<Todo> expiredTodos = todoMapper.selectExpired();
+    model.addAttribute("expiredTodos", expiredTodos);
+
     return "index";
 
   }

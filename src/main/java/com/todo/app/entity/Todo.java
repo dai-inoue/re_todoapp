@@ -39,6 +39,9 @@ public class Todo implements Comparable<Todo> {
   @Column(name = "done_flg")
   private int done_flg;
 
+  @Column(name = "expired_flg")
+  private int expiredFlg;
+
   // このクラスではあくまでもソートのルールを定義している
   @Override
   public int compareTo(Todo otherTodo) {
