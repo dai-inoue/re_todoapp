@@ -15,12 +15,13 @@ https://github.com/user-attachments/assets/1578e7f5-aaea-49af-8bb5-8600db4785f7
 - タスクの検索機能
 - タスクの戻り機能（完了したタスクを未完了に戻す）
 - 日付優先機能（登録した日付の前後で並び順が変化）
+- 期限切れタスクの自動状態遷移機能
 
 # 技術的特徴
--   **言語**: Java
--   **フレームワーク**: Spring Boot
--   **データベース**: MySQL
--   **ビルドツール**: Maven
+- **言語**: Java
+- **フレームワーク**: Spring Boot
+- **データベース**: MySQL
+- **ビルドツール**: Maven
 
 # 使用フレームワーク・ライブラリー
 - spring-boot-starter-web: Webアプリケーションを開発するための基本的な機能をつけるため。
@@ -29,6 +30,7 @@ https://github.com/user-attachments/assets/1578e7f5-aaea-49af-8bb5-8600db4785f7
 - mybatis-spring-boot-starter 3.0.3: データベースと連携するためまた、JavaのコードからSQL文を扱いやすくするため。
 - mysql-connector-j: MySQLデータベースに接続するため。
 - lombok: getterやsetterなどのコードを自動生成してくれるため。
+- quartz: バッチ処理などのスケジューリングのため。
 
 # インストール方法
 - 必要なもの
@@ -38,7 +40,7 @@ https://github.com/user-attachments/assets/1578e7f5-aaea-49af-8bb5-8600db4785f7
     - MySQL Workbench 8.0 CE
 - セットアップ
    (以下のコマンドでプロジェクトをローカルにクローンします。)
-  - https://github.com/dai-inoue/re_todoapp.git
+  - git clone https://github.com/dai-inoue/re_todoapp.git
 - ビルド方法
   - cd re_todoapp <br>(プロジェクトのディレクトリに移動します)
   - mvn packageプロジェクトをビルドします。<br>(このコマンドが成功すると、`target` フォルダ内に `re_todoapp-0.0.1-SNAPSHOT.jar` という実行可能なファイルが生成されます。)
