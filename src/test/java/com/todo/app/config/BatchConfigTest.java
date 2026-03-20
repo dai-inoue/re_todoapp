@@ -4,7 +4,9 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.batch.core.BatchStatus;
+import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,8 @@ public class BatchConfigTest {
 
   @Autowired
   private JobLauncherTestUtils jobLauncherTestUtils; // お作法：job起動時のルール
-
+  @Autowired
+  private Job myJob;
   @MockBean
   private TaskManagementService taskManagementService; // お作法：taskManagementServiceの部品を使用
 
@@ -44,5 +47,15 @@ public class BatchConfigTest {
     Mockito.verify(taskManagementService).markExpiredTasks();
 
     System.out.println("テスト完了！");
+  }
+
+  @Test
+  void chunk形式のテスト() throws Exception {
+    // 1. 実行（今日作った「myJob」を狙い撃ち）
+    JobExecution jobExecution = jobLauncherTestUtils.getJobLauncher().run(myJob,
+        new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters());
+
+    // 2. 確認（ちゃんと終わったか？）
+    assertThat(jobExecution.getStatus()).isEqualTo(BatchStatus.COMPLETED);
   }
 }
