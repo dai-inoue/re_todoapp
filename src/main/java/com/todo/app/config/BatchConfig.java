@@ -1,6 +1,6 @@
 package com.todo.app.config;
 
-import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -27,18 +27,24 @@ public class BatchConfig {
 
   // 部品の作成(Step)
   @Bean
-  public Step step1(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+  public Step step1(JobRepository jobRepository, PlatformTransactionManager transactionManager,
+      TodoRepository repository) {
     return new StepBuilder("step1", jobRepository).tasklet((contribution, chunkContext) -> {
 
-      // 👈 ここに「一括でやりたいこと」を全部書く！
-      System.out.println("データを一括で更新したよ！");
+      List<Todo> items = repository.findAll();
 
-      return RepeatStatus.FINISHED; // 「お仕事終わり！」の合図
+      repository.saveAll(items);
+
+      for (Todo item : items) {
+        // 🔍 ここで1件ずつ Item の「中身」を取り出して確認している！
+        System.out.println("いま処理中の Item はこれだ: " + item.getTitle());
+      }
+      return RepeatStatus.FINISHED;
     }, transactionManager).build();
   }
   // ------------------------------tasklet↑---------------------------------------------------
 
-  // 1. 読み込み担当 (Reader )
+  // 1. 読み込み担当 (Reader)
   @Bean
   public RepositoryItemReader<Todo> reader(TodoRepository repository) {
     // 1件だけ、テスト用のTask（荷物）を作って入れる
@@ -51,12 +57,10 @@ public class BatchConfig {
   public ItemProcessor<Todo, Todo> Processor() {
     return item -> {
 
-      LocalDate now = LocalDate.now();
-      if (item.getTime_limit() != null && item.getTime_limit().isBefore(now)
-          && item.getDone_flg() == 0) {
-        item.setExpiredFlg(1);
-        System.out.println("期限が切れてます" + item.getTitle());
-      }
+      // 🔍 ここでベルトコンベアの上を流れる Item を1件ずつ覗き見る！
+      System.out.println("【Chunk】いま流れてきた Item はこれだ: " + item.getTitle());
+
+      // 何も加工せずにそのまま Writer（次の工程）へ流す
       return item;
     };
   }
@@ -80,7 +84,7 @@ public class BatchConfig {
 
   // tasklet chankでstep部分変更
   @Bean
-  public Job myjob(JobRepository jobRepository, Step step1) {
-    return new JobBuilder("myjob", jobRepository).start(step1).build();
+  public Job myjob(JobRepository jobRepository, Step myChankstep) {
+    return new JobBuilder("myjob", jobRepository).start(myChankstep).build();
   }
 }
