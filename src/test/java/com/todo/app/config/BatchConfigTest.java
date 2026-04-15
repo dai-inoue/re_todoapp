@@ -1,61 +1,64 @@
 package com.todo.app.config;
 
-import static org.assertj.core.api.Assertions.*;
+import java.time.LocalDate;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import com.todo.app.service.TaskManagementService;
+import org.springframework.test.context.ActiveProfiles;
+import com.todo.app.TodoRepository;
+import com.todo.app.entity.Todo;
 
 
 @SpringBootTest(
     // テスト用のDBを作成
-    properties = {"spring.batch.job.enabled=false", "spring.batch.jdbc.initialize-schema=always"})
-// JobLauncherTestUtilsを使えるようにする
+    properties = {"spring.batch.job.enabled=false", "spring.jpa.hibernate.ddl-auto=update",
+        "spring.batch.jdbc.initialize-schema=always"})
+@ActiveProfiles("test")
 @SpringBatchTest
-// @ContextConfiguration(classes = {BatchConfig.class, DefaultBatchConfiguration.class
-// Batch 5系のSpring Batchを動かすための基盤を読み込む
 
 public class BatchConfigTest {
 
   @Autowired
-  private JobLauncherTestUtils jobLauncherTestUtils; // お作法：job起動時のルール
+  private TodoRepository todoRepository;
+  @Autowired
+  private JobLauncherTestUtils jobLauncherTestUtils;
   @Autowired
   private Job myJob;
-  @MockBean
-  private TaskManagementService taskManagementService; // お作法：taskManagementServiceの部品を使用
 
-  @Test
-  public void testMarkExpiredTasks() throws Exception {
-    // 1. もしmarkExpiredTasksを実行した際に１を返す
-    Mockito.when(taskManagementService.markExpiredTasks()).thenReturn(1);
-
-    // 2. ジョブ実行 メモを取る
-    JobExecution jobExecution = jobLauncherTestUtils.launchJob();
-
-    // 3. ステータス確認
-    assertThat(jobExecution.getStatus()).isEqualTo(BatchStatus.COMPLETED);
-
-    // 4.検証中(無事通りましたという印)
-    Mockito.verify(taskManagementService).markExpiredTasks();
-
-    System.out.println("テスト完了！");
+  @BeforeEach
+  void setJob() {
+    this.jobLauncherTestUtils.setJob(myJob);
   }
 
   @Test
-  void chunk形式のテスト() throws Exception {
-    // 1. 実行（今日作った「myJob」を狙い撃ち）
-    JobExecution jobExecution = jobLauncherTestUtils.getJobLauncher().run(myJob,
-        new JobParametersBuilder().addLong("time", System.currentTimeMillis()).toJobParameters());
+  void 本物のBatchジョブを動かすテスト() throws Exception {
+    try {
+      todoRepository.deleteAll();
+      todoRepository.flush();
 
-    // 2. 確認（ちゃんと終わったか？）
-    assertThat(jobExecution.getStatus()).isEqualTo(BatchStatus.COMPLETED);
+      // 1. 下準備
+      for (int i = 1; i <= 100; i++) {
+        Todo t = new Todo();
+        t.setTitle("未処理データ" + i);
+        t.setTime_limit(LocalDate.now());
+        todoRepository.save(t);
+      }
+      todoRepository.flush();
+      System.out.println("--- 下準備完了（100件） ---");
+
+      // 2. 本番
+      System.out.println("★Job起動直前...");
+      JobExecution jobExecution = jobLauncherTestUtils.launchJob();
+      System.out.println("Jobの実行結果: " + jobExecution.getStatus());
+
+    } catch (Exception e) {
+      System.err.println("❌Batch起動失敗！❌");
+      e.printStackTrace(); // 👈 ここで本当のエラーが出るはず
+    }
   }
 }

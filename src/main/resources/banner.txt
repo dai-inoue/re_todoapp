@@ -1,0 +1,18 @@
+${AnsiColor.RED}S${AnsiColor.YELLOW}P${AnsiColor.GREEN}R${AnsiColor.CYAN}I${AnsiColor.BLUE}N${AnsiColor.MAGENTA}G
+
+
+${AnsiColor.RED}    .   ____ ${AnsiColor.YELLOW}         _  ${AnsiColor.GREEN}          _ ${AnsiColor.CYAN}           __ ${AnsiColor.BLUE} _ _
+${AnsiColor.RED}   /\\ / ___'${AnsiColor.YELLOW}_ __ _ _${AnsiColor.GREEN}(_)_ __  ${AnsiColor.CYAN}__ _ ${AnsiColor.BLUE}\ \ \ \
+${AnsiColor.RED}  ( ( )\___ |${AnsiColor.YELLOW} '_ | '_|${AnsiColor.GREEN} | '_ \/${AnsiColor.CYAN} _` | ${AnsiColor.BLUE}\ \ \ \
+${AnsiColor.RED}   \\/  ___)|${AnsiColor.YELLOW} |_)| | |${AnsiColor.GREEN} | | || (${AnsiColor.CYAN} _| |  ${AnsiColor.BLUE}) ) ) )
+${AnsiColor.RED}    '  |____|${AnsiColor.YELLOW} .__|_| |${AnsiColor.GREEN}_|_| |_\_${AnsiColor.CYAN}_, | /${AnsiColor.BLUE} / / /
+${AnsiColor.MAGENTA}   =========|_|==============|___/=/_/_/_/
+
+${AnsiColor.DEFAULT}
+
+${AnsiStyle.BOLD}${AnsiColor.BRIGHT_CYAN}=================================================
+${AnsiColor.BRIGHT_YELLOW}  Java Version:    ${java.version}
+${AnsiColor.BRIGHT_GREEN}  Spring Version:  ${spring-boot.version}
+${AnsiStyle.NORMAL}${AnsiColor.BRIGHT_CYAN}=================================================
+${AnsiColor.DEFAULT}
+

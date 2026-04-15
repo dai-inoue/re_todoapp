@@ -10,6 +10,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import com.todo.app.jobs.ExpiredTaskMarkJob;
 
@@ -30,6 +31,7 @@ public class TodoappApplication {
    * @author SS2230
    */
   @Bean
+  @Profile("!test")
   public Scheduler schedulerFactoryBean(SchedulerFactoryBean sfBean) throws SchedulerException {
     Scheduler sd = sfBean.getScheduler();
     try {
