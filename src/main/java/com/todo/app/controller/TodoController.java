@@ -81,11 +81,11 @@ public class TodoController {
     // エラーなければTodoアイテムをデータベースに保存する
     todoMapper.add(todo);
     return "redirect:/";
-  }
 
 
-  // 完了済処理
+  } // 完了済処理
   // 目的のURLに対して直接アクセスするためのメソッド
+
   @RequestMapping(value = "/update")
   // TodoMapper.javaインタフェースのupdate( )メソッドを実行
   public String update(Todo todo) {
@@ -103,6 +103,9 @@ public class TodoController {
 
   // 検索機能の追加
   // webブラウザからアクセスしたとき
+  // @RequestParamデータを受け取る
+  // @GetMapping対象の画面見たいとき
+
   @GetMapping(value = "/search")
   public String serch(@RequestParam(value = "keyword", required = false) String keyword,
       // modelで引数をHTML側へ渡す
@@ -113,6 +116,7 @@ public class TodoController {
       model.addAttribute("todos", todoMapper.selectComplete());
       model.addAttribute("donetodos", todoMapper.selectIncomplete());
       model.addAttribute("todo", new Todo());
+      model.addAttribute("isSearched", true);
       return "index";
     }
     // 正しいkeywordが入力された際searchResultに格納される
@@ -137,6 +141,7 @@ public class TodoController {
     // 検索結果をisSearchedに入れhtmlへ渡す
     model.addAttribute("isSearched", true);
     return "index";
+    // ここまで完了20260614
   }
 
   // 日付・タスク更新処理
