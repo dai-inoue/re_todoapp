@@ -141,11 +141,13 @@ public class TodoController {
     // 検索結果をisSearchedに入れhtmlへ渡す
     model.addAttribute("isSearched", true);
     return "index";
-    // ここまで完了20260614
+
   }
 
   // 日付・タスク更新処理
   // htmlの/task/updateへリクエストを**受け取る**
+  // @PostMapping HTMLから送られてきた値を受け取る
+
   @PostMapping(value = "/task/update")
   // id title time_limitを更新する
   public String updateItem(@RequestParam("id") int id, @RequestParam("title") String title,
@@ -154,7 +156,7 @@ public class TodoController {
     todoMapper.updateItem(id, title, time_limit);
 
     return "redirect:/";
-  }
+  }// ここまで完了20260621
 
   // タスク完了から未完了更新処理
   // htmlの/task/restoreへリクエストを**受け取る**
