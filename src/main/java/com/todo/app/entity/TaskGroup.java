@@ -3,6 +3,7 @@ package com.todo.app.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+// 20261031変更追加
 public class TaskGroup {
 
   private List<Todo> myTasks = new ArrayList<>(); // （マイタスク一覧）

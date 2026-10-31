@@ -43,7 +43,7 @@ public class TodoController {
     model.addAttribute("expiredTodos", group.getExpiredTasks());
   }
 
-  // 目的のURLに対して直接アクセスするメソッド
+  // 目的のURLに対して直接アクセスするメソッド 20261031変更追加
   @RequestMapping(value = "/")
   // controllerで作成されたデータをviewに渡す
   public String index(Model model) {
@@ -53,7 +53,7 @@ public class TodoController {
     return "index";
   }
 
-  // 追加処理
+  // 追加処理 20261031変更追加
   @PostMapping(value = "/add")
   // TodoMapper.javaインタフェースのadd( )メソッドを実行
   // index.htmlで入力されたデータがTodoへ入る
