@@ -36,8 +36,8 @@ public interface TodoMapper {
   @Insert("INSERT INTO todo_items (title, time_limit, done_flg, expired_flg) VALUES (#{title}, #{time_limit}, 0, 0)")
   public void add(Todo todo);
 
-  // 検索機能
-  @Select("select * from todo_items where title LIKE CONCAT('%',#{keyword},'%')")
+  // 【変更箇所】検索機能 ＋ 今日から10日以内の条件をプラス 20261031変更追加
+  @Select("SELECT * FROM todo_items WHERE title LIKE CONCAT('%',#{keyword},'%') AND time_limit >= CURDATE() AND time_limit <= DATE_ADD(CURDATE(), INTERVAL 10 DAY)")
   List<Todo> searchBytitle(String keyword);
 
   // 期限切れタスクを検索する

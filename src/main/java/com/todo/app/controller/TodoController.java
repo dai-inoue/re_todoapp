@@ -1,6 +1,6 @@
 package com.todo.app.controller;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.todo.app.entity.TaskGroup;
 import com.todo.app.entity.Todo;
 import com.todo.app.mapper.TodoMapper;
+import com.todo.app.service.TaskManagementService;
 import jakarta.validation.Valid;
 
 /**
@@ -22,60 +24,43 @@ import jakarta.validation.Valid;
 @Controller
 public class TodoController {
 
+
+  @Autowired
+  TaskManagementService taskManagementService;
+
   // DBを使えるようにするために使うもの!
   @Autowired
   TodoMapper todoMapper;
 
-  // 目的のURLに対して直接アクセスするメソッド
+  // 一覧表示用のデータ(マイタスク・完了済み・期限切れ)をModelに詰める共通処理
+  private void setTaskLists(Model model) {
+    TaskGroup group =
+        taskManagementService.categorizeTasks(todoMapper.selectAll(), LocalDate.now());
+    Collections.sort(group.getMyTasks());
+    Collections.sort(group.getExpiredTasks());
+    model.addAttribute("todos", group.getMyTasks());
+    model.addAttribute("doneTodos", group.getCompletedTasks());
+    model.addAttribute("expiredTodos", group.getExpiredTasks());
+  }
+
+  // 目的のURLに対して直接アクセスするメソッド 20261031変更追加
   @RequestMapping(value = "/")
   // controllerで作成されたデータをviewに渡す
   public String index(Model model) {
-    // ArrayListの作成
-    ArrayList<String> List = new ArrayList<>();
-
-    // TodoMapper.javaインタフェースのselectIncomplete( )メソッドを実行
-    // 未完了のTodoアイテムのリストをデータベースから取得
-    List<Todo> incompleteList = todoMapper.selectIncomplete();
-    // 取得した未完了リストを "todos" という名前でモデルに追加.その後viewで使用
-    model.addAttribute("todos", incompleteList);
-
-    // TodoMapper.javaインタフェースのselectComplete( )メソッドを実行
-    // 完了のTodoアイテムのリストをデータベースから取得
-    List<Todo> completeList = todoMapper.selectComplete();
-    // 取得した完了リストを "todos" という名前でモデルに追加.その後viewで使用
-    model.addAttribute("doneTodos", completeList);
-
+    setTaskLists(model);
     // 新しいタスクを入力するためのフォームを、初期化状態で表示
     model.addAttribute("todo", new Todo());
-
-    // TodoクラスのcompareToメソッドに基づいてincompleteListをソートします
-    Collections.sort(incompleteList);
-
-    List<Todo> expiredTodos = todoMapper.selectExpired();
-    model.addAttribute("expiredTodos", expiredTodos);
-
     return "index";
-
   }
 
-  // 追加処理
+  // 追加処理 20261031変更追加
   @PostMapping(value = "/add")
   // TodoMapper.javaインタフェースのadd( )メソッドを実行
   // index.htmlで入力されたデータがTodoへ入る
   public String add(@Valid Todo todo, BindingResult bindingResult, Model model) {
     // バリデーション機能でエラーがあった際
     if (bindingResult.hasErrors()) {
-      // データベースから未完了リストのtodoリストを取得して(incompleteList)に格納される
-      List<Todo> incompleteList = todoMapper.selectIncomplete();
-      // 未完了リストをソートする
-      Collections.sort(incompleteList);
-      // 未完了リストを"todos"という名前でviewへ渡す
-      model.addAttribute("todos", incompleteList);
-
-      List<Todo> completeList = todoMapper.selectComplete();
-      // 取得した完了リストを "todos" という名前でモデルに追加.その後viewで使用
-      model.addAttribute("doneTodos", completeList);
-
+      setTaskLists(model); // ← これ1行で、3つのリストを全部Modelに詰める
       return "index";
     }
     // エラーなければTodoアイテムをデータベースに保存する
@@ -141,11 +126,13 @@ public class TodoController {
     // 検索結果をisSearchedに入れhtmlへ渡す
     model.addAttribute("isSearched", true);
     return "index";
-    // ここまで完了20260614
+
   }
 
   // 日付・タスク更新処理
   // htmlの/task/updateへリクエストを**受け取る**
+  // @PostMapping HTMLから送られてきた値を受け取る
+
   @PostMapping(value = "/task/update")
   // id title time_limitを更新する
   public String updateItem(@RequestParam("id") int id, @RequestParam("title") String title,
@@ -154,7 +141,7 @@ public class TodoController {
     todoMapper.updateItem(id, title, time_limit);
 
     return "redirect:/";
-  }
+  }// ここまで完了20260621
 
   // タスク完了から未完了更新処理
   // htmlの/task/restoreへリクエストを**受け取る**
