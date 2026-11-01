@@ -23,7 +23,9 @@
     <form method="post" th:action="@{/task/update}" style="display:inline-block;">
         <input type="hidden" name="id" th:value="${todo.id}" />
         <input type="text" name="title" th:value="${todo.title}" />
-        <input type="date" name="time_limit" th:value="${todo.time_limit}" />
+       <input type="date" name="time_limit" th:value="${todo.time_limit}" />
+        <span th:if="${todo.time_limit != null}"
+              th:text="${#temporals.format(todo.time_limit, '(E)')}">（日）</span>
         <button type="submit">更新</button>
     </form>
     <form method="post" th:action="@{/update}" style="display:inline-block;">
@@ -48,7 +50,10 @@
 	<span th:text="${todo.title}" style="text-decoration:line-through"></span>
 	<span th:text="${todo.time_limit}" style="text-decoration:line-through"></span>
 </div>
-
+<form th:if="${!expiredTodos.isEmpty()}" method="post" th:action="@{/delete-expired}"
+      onsubmit="return confirm('期限切れのタスクをすべて削除しますか？');">
+    <input type="submit" value="期限切れを削除" />
+</form>
 <h3>新しいタスクを追加</h3>
 <form method="post" th:action="@{/add}" th:object="${todo}">
 	<input type="text" th:field="*{title}" />
@@ -60,6 +65,5 @@
 <form method="post" th:action="@{/delete-done}">
 	 <input type="submit" value="完了済みを削除" />
 </form>
-
 </body>
 </html>
