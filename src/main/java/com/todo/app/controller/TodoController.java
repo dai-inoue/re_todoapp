@@ -151,4 +151,11 @@ public class TodoController {
     todoMapper.markAsIncomplete(id);
     return "redirect:/"; // タスクを戻した後、トップページにリダイレクト
   }
+
+  // 期限切れタスクの一括削除
+  @PostMapping("/delete-expired")
+  public String deleteExpiredTodos() {
+    todoMapper.deleteExpiredTodos();
+    return "redirect:/";
+  }
 }

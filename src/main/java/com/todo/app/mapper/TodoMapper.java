@@ -48,6 +48,10 @@ public interface TodoMapper {
   @Delete("DELETE from todo_items where done_flg = 1")
   void deleteDoneTodos();
 
+  // 期限切れ(未完了で期限が今日より前)のタスクをすべて削除する
+  @Delete("DELETE FROM todo_items WHERE done_flg = 0 AND time_limit < CURDATE()")
+  int deleteExpiredTodos();
+
   // todomapper.xmlにもsqlは書かれているが大まかな違いとしては、簡単なコードはアノテーション。複雑なのはxmlへ書く
 
 }

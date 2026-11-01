@@ -59,11 +59,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 完了済  done_flg = 1のtodoアイテムをtodo_itemsテーブルから削除するsqlマッピング-->
 	<!-- id="delete"を javaコードからSQLを呼び出す識別子  -->
-	<!-- parameterType="com.todo.app.entity.Todo": 
+	<!-- parameterType="com.todo.app.entity.Todo":
 	このSQLに引数としてTodoエンティティが渡されるが、SQL自体は固定の条件（done_flg=1）で削除を行う -->
-	<delete id="delete" parameterType="com.todo.app.entity.Todo">
-		DELETE FROM todo_items WHERE done_flg = 1
-	</delete>
+<delete id="delete">
+    DELETE FROM todo_items WHERE id = #{id}
+</delete>
 
 	<!-- 更新処理-->
 	<update id="updateItem">
@@ -72,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 set
 	 	title = #{title},
 	 	time_limit = #{time_limit}
-	 where 
+	 where
 	 	id = #{id}
 	</update>
 
